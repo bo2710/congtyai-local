@@ -28,6 +28,8 @@ class ReplyError(ValueError):
         return self.message
 
 def schema_for(stage, teams=(), pinned=False):
+    if stage=='file_name':
+        return {'type':'object','required':['name'],'properties':{'name':FILE['properties']['name']}}
     properties = {'text': TEXT, 'andon': ANDON}
     if stage not in {'write_part','file_plan','review_part','assignment','receipt'}:
         properties.update({name: STRING for name in ('dissent','memory','reply','test')})

@@ -48,6 +48,7 @@ class WorkLanguageTests(unittest.TestCase):
             expected={'text':'Kết quả đã kiểm'}
             if 'verdict' in schema['required']:expected['verdict']='accept'
             if op=='route':expected['team']='eng'
+            if op=='file_name':expected={'name':'main.py'}
             if op=='file_plan':expected['plan']=[{'name':'main.py','parts':['logic']}]
             if op=='write_part':expected['content']='print(42)\n'
             doc=pack(expected)

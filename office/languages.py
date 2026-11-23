@@ -73,6 +73,7 @@ OPS={
 'sign':('Decide release from actual QA evidence. Give files, run instructions, dissent and open gaps.','根据实测证据决定发布，说明文件、运行方法、异议与缺口。'),
 'assignment':('Complete your assigned package. Return actual files and a usable handoff.','完成所分工单，提交实际文件及交接说明。'),
 'receipt':('Check the supplied version and evidence. For merges provide merge_reason and preserved with job and behavior.','核验交接版本和证据。合并时返回 merge_reason 及各来源 job 和 behavior 的 preserved。'),
+'file_name':('Replace only the rejected filename. Return name, relative to the project root. Keep its intended file and avoid existing names.','只修正被拒绝的文件名。返回项目根目录下的相对路径 name，保留文件用途，避开已有名称。'),
 'file_plan':('Return text and plan with name and ordered parts for each file. Honor the requested file count.','返回 text 和 plan，列出每个文件的 name 与有序 parts，遵守文件数量要求。'),
 'write_part':('Return text and exact content of this part. Preserve newlines at boundaries.','返回 text 和本段精确的 content，保留边界换行。'),
 'review_part':('Review this entire source slice. Give verdict, severity, criteria_refs and cross-file defines/uses under contracts.','审阅整段源码，提交 verdict、severity、criteria_refs 及 contracts 中的跨文件定义和引用。'),

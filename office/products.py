@@ -7,6 +7,19 @@ from .store import pack
 MAX_BYTES=4_000_000
 MAX_FILES=128
 MAX_PARTS=64
+PATH_RULE=('Mỗi name là đường dẫn tương đối tính từ thư mục gốc dự án, ví dụ src/app.js. '
+           'Dùng dấu /, chữ, số, dấu chấm, gạch dưới hoặc gạch nối. '
+           'Không dùng đường dẫn tuyệt đối, ký tự ổ đĩa, dấu cách, . hoặc .. làm một đoạn, tên thiết bị Windows hay dấu gạch ngược. '
+           'Một đường dẫn chỉ xuất hiện một lần và không được là thư mục cha của đường dẫn tệp khác.')
+
+def checked_path(value, used, field):
+    name=software.filename(value)
+    if not name:
+        raise ValueError(f'{field} cần là đường dẫn tương đối hợp lệ.')
+    path=name.casefold()
+    if path in used or any(path.startswith(other+'/') or other.startswith(path+'/') for other in used):
+        raise ValueError(f'{field} trùng hoặc xung đột đường dẫn: {name}.')
+    return name
 
 def files_from(raw):
     if not isinstance(raw,list) or len(raw)>MAX_FILES:
@@ -17,18 +30,13 @@ def files_from(raw):
     for index,item in enumerate(raw,1):
         if not isinstance(item,dict):
             raise ValueError(f'files[{index}] cần là một đối tượng.')
-        name=software.filename(item.get('name'))
+        name=checked_path(item.get('name'),seen,f'files[{index}].name')
         content=item.get('content')
-        if not name:
-            raise ValueError(f'files[{index}].name cần là đường dẫn tương đối hợp lệ.')
         if not isinstance(content,str) or not content.strip():
             raise ValueError(f'{name} thiếu nội dung.')
         if content.strip().lower() in {'todo','tbd','...','[placeholder]'}:
             raise ValueError(f'{name} chỉ có nội dung giữ chỗ.')
-        part=name.casefold()
-        if part in seen or any(part.startswith(path+'/') or path.startswith(part+'/') for path in seen):
-            raise ValueError(f'Đường dẫn tệp trùng hoặc xung đột: {name}.')
-        seen.add(part)
+        seen.add(name.casefold())
         try:total+=len(content.encode('utf-8'))
         except UnicodeEncodeError as exc:raise ValueError(f'{name} chứa ký tự Unicode không hợp lệ.') from exc
         if total>MAX_BYTES:
@@ -65,6 +73,34 @@ def write_assigned(engine,row,agent,model,system,user,name):
     result,tokens=engine.call(row,agent,model,'write_part',system,prompt)
     return {'text':result['text'],'files':files_from([{'name':name,'content':result['content']}])},tokens
 
+def repair_plan_paths(engine,row,agent,model,system,plan):
+    # Reserve valid names before asking for a replacement, including later entries.
+    used={}
+    fixes=[]
+    for index,spec in enumerate(plan,1):
+        field=f'plan[{index}].name'
+        try:
+            name=checked_path(spec['name'],used,field)
+        except ValueError as exc:
+            fixes.append((index,spec,str(exc)))
+        else:
+            used[name.casefold()]=name
+    for index,spec,reason in fixes:
+        with engine.store.db(True) as c:
+            if not engine.current(c,row):raise contracts.ReplyError('stale','Lượt đã thay đổi.')
+            engine.store.event(c,row['id'],'retry',row['stage'],agent,reason+' Yêu cầu sửa riêng tên tệp.')
+        prompt=task_json('Sửa tên tệp','Trả riêng trường name cho tệp này. '+PATH_RULE,
+                         requirement=row['brief'], item=index, rejected_name=spec['name'],
+                         parts=spec['parts'], existing_names=list(used.values()), error=reason)
+        answer,_=engine.call(row,agent,model,'file_name',system,prompt)
+        try:
+            name=checked_path(answer['name'],used,f'plan[{index}].name')
+        except ValueError as exc:
+            raise contracts.ReplyError('file_plan_path',
+                f'{exc} Tên model trả sau khi sửa: {answer["name"][:190]!r}') from exc
+        spec['name']=name
+        used[name.casefold()]=name
+
 def multipart(engine,row,agent,model,system,user,task_id="deliver"):
     key=row['id']
     kind='files' if task_id=='deliver' else 'files:'+task_id+':'+agent
@@ -76,11 +112,11 @@ def multipart(engine,row,agent,model,system,user,task_id="deliver"):
     if checkpoint.get('signature') not in {signature,legacy} or not checkpoint.get('plan'):
         old=json.loads(user)
         data={k:v for k,v in old.items() if k not in {'mẫu JSON','việc của lượt'}}
-        answer,_=engine.call(row,agent,model,'file_plan',system,task_json('Lập kế hoạch tệp','Trả text và plan. Mỗi mục có name và parts (các phần theo thứ tự, mỗi phần tự viết vừa một lượt). Giữ đúng số tệp người dùng yêu cầu.',**data))
+        answer,_=engine.call(row,agent,model,'file_plan',system,task_json('Lập kế hoạch tệp','Trả text và plan. Mỗi mục có name và parts theo thứ tự, mỗi phần vừa một lượt. Giữ số tệp được yêu cầu. '+PATH_RULE,**data))
         plan=answer['plan']
-        files_from([{'name':f['name'],'content':'x'} for f in plan])
         if sum(len(f['parts']) for f in plan)>MAX_PARTS:
             raise ValueError(f'Kế hoạch vượt {MAX_PARTS} phần. Chia ticket theo đầu ra.')
+        repair_plan_paths(engine,row,agent,model,system,plan)
         checkpoint={'signature':signature,'plan':plan,'parts':{},'text':answer['text']}
         with engine.store.db(True) as c:
             if not engine.current(c,row):raise contracts.ReplyError('stale','Lượt đã thay đổi.')

@@ -105,3 +105,50 @@ class OutputRoutingChecks(unittest.TestCase):
                 view=self.app.store.view(key)
                 self.assertEqual(view['stage'],'route_review',view['reason'])
                 self.app.engine.control(key,'pause')
+
+    def test_multifile_delivery_repairs_only_invalid_path(self):
+        for corrected in ('src/app.js','../outside.js','SRC/VIEW.HTML','src/view.html/app.js'):
+            with self.subTest(corrected=corrected):
+                case=self.app.store.create('Viết trang và mã với hai tệp.','Thử gói','local','ollama',approval='auto')
+                with self.app.store.db(True) as db:
+                    db.execute("UPDATE cases SET stage='deliver',team='product' WHERE id=?",(case,))
+                self.app.models.list=lambda provider:['local']
+                self.app.models.ctx=8192
+                writes=[]
+                def reply(provider,model,system,user,temp):
+                    data=json.loads(user)
+                    task=data.get('việc của lượt')
+                    if task==TASKS['deliver']:
+                        return {'text':'Lập gói hai tệp.'},8
+                    if task=='Lập kế hoạch tệp':
+                        return {'text':'Gói tĩnh.','plan':[
+                            {'name':'C:/Workspace/app.js','parts':['Mã ứng dụng']},
+                            {'name':'src/view.html','parts':['Trang giao diện']}]},18
+                    if task=='Sửa tên tệp':
+                        self.assertEqual(data['item'],1)
+                        self.assertEqual(data['parts'],['Mã ứng dụng'])
+                        self.assertEqual(data['existing_names'],['src/view.html'])
+                        return {'name':corrected},5
+                    self.assertEqual(task,'Viết phần tệp')
+                    writes.append((data['name'],data['purpose']))
+                    return {'text':'Đã viết.','content':{
+                        'src/app.js':'const label = "ok";',
+                        'src/view.html':'<!doctype html><title>Thử gói</title>'}[data['name']]},8
+                with patch.object(self.app.models,'chat',side_effect=reply):
+                    self.assertTrue(self.app.engine.step())
+                view=self.app.store.view(case)
+                operations=[a['stage'] for a in view['attempts']]
+                self.assertEqual(operations[:3],['deliver','file_plan','file_name'])
+                self.assertEqual(operations.count('file_plan'),1)
+                if corrected=='src/app.js':
+                    self.assertEqual(view['stage'],'quality',view['reason'])
+                    self.assertEqual(writes,[('src/app.js','Mã ứng dụng'),('src/view.html','Trang giao diện')])
+                    self.assertEqual([f['name'] for f in view['history'][-1]['answer']['files']],
+                                     ['src/app.js','src/view.html'])
+                    self.app.engine.control(case,'pause')
+                else:
+                    self.assertEqual(view['status'],'error',view['reason'])
+                    self.assertIn('plan[1].name',view['reason'])
+                    self.assertIn(corrected,view['reason'])
+                    self.assertFalse(writes)
+                    self.assertFalse(view['versions'])
