@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chia Kèo</title>
+<style>
+body{margin:0;background:#f3f4ea;color:#1e332b;font:16px system-ui,sans-serif;padding:18px}
+main{max-width:420px;margin:8vh auto;padding:20px;background:#fffff8;border-radius:18px;box-shadow:0 8px 32px #15332215}
+h1{margin:0 0 9px;letter-spacing:-.05em}
+form{display:grid;gap:12px;margin:16px 0}
+label{display:grid;gap:6px;font-weight:650}
+input,button{font:inherit;border:1px solid #869c8c;border-radius:8px;padding:10px;min-width:0}
+button{background:#185a49;color:white;font-weight:700;cursor:pointer}
+section{background:#eef4e8;border-radius:8px;padding:10px;overflow-wrap:anywhere}
+p{margin:6px 0} [role=alert]{color:#a13434;font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<h1>Chia Kèo</h1>
+<p>Nhập hóa đơn và số người để chia tiền.</p>
+<form id="split" novalidate>
+<label>Tổng tiền (đồng)<input data-testid="total" inputmode="numeric" autocomplete="off" placeholder="100.000"></label>
+<label>Số người<input data-testid="people" inputmode="numeric" autocomplete="off" placeholder="3"></label>
+<button data-testid="divide" type="submit">Chia tiền</button>
+</form>
+<p data-testid="error" role="alert" hidden></p>
+<section data-testid="result" role="status" hidden>
+<p><strong data-testid="first-count"></strong> <span id="first-label">người đầu</span> trả <strong data-testid="first-amount"></strong> đồng mỗi người.</p>
+<p id="second"><strong data-testid="second-count"></strong> người sau trả <strong data-testid="second-amount"></strong> đồng mỗi người.</p>
+</section>
+</main>
+<script>
+'use strict';
+const field=name=>document.querySelector('[data-testid="'+name+'"]');
+const format=new Intl.NumberFormat('vi-VN');
+function display(name,value){field(name).textContent=format.format(value);}
+function showError(message){
+  const error=field('error'); error.textContent=message; error.hidden=false; field('result').hidden=true;
+}
+function divide(event){
+  event.preventDefault();
+  const total=field('total').value.trim(), people=field('people').value.trim();
+  if(!/^(\d+|\d{1,3}(\.\d{3})+)$/.test(total)){showError('Nhập tổng tiền bằng số đồng nguyên không âm.');return;}
+  if(!/^\d+$/.test(people) || BigInt(people)===0n){showError('Nhập số người nguyên lớn hơn 0.');return;}
+  const amount=BigInt(total.replaceAll('.','')), count=BigInt(people);
+  const base=amount/count, remainder=amount%count;
+  const firstCount=remainder===0n?count:remainder;
+  const firstAmount=base+(remainder===0n?0n:1n);
+  field('error').hidden=true; field('error').textContent='';
+  field('result').hidden=false;
+  document.querySelector('#first-label').textContent=remainder===0n?'người':'người đầu';
+  display('first-count',firstCount); display('first-amount',firstAmount);
+  document.querySelector('#second').hidden=remainder===0n;
+  display('second-count',count-firstCount); display('second-amount',base);
+}
+document.querySelector('#split').addEventListener('submit',divide);
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f8f1">
+  <title>Văn phòng AI · Công ty AI Local</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Tới nội dung</a>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="Công ty AI Local, trang chính"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>Công ty <b>AI Local</b></span></a>
+  <div class="top-ticket"><span class="muted">Hồ sơ đang mở</span><strong id="top-ticket">Đang tải…</strong></div>
+  <div class="top-status"><span id="connection" class="chip"><i></i>Kết nối local</span><time id="last-updated"></time></div>
+  <button class="button primary" id="new-ticket"><span aria-hidden="true">＋</span> Giao việc</button>
+</header>
+<div class="workspace">
+  <aside class="sidebar" aria-label="Hồ sơ và nhân viên">
+    <section>
+      <div class="section-heading"><h2>Hồ sơ</h2><span id="case-count" class="counter"></span></div>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="case-filter" type="search" aria-label="Tìm hồ sơ" placeholder="Tìm hồ sơ"></label>
+      <div id="cases" class="case-list"></div>
+    </section>
+    <section class="people-section">
+      <div class="section-heading"><h2>Nhân viên</h2><span id="staff-count" class="counter"></span></div>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="staff-filter" type="search" aria-label="Tìm người, phòng, chuyên môn" placeholder="Tên, phòng, chuyên môn"></label>
+      <div class="filters">
+        <select id="department-filter" aria-label="Lọc theo phòng"><option value="">Tất cả phòng</option></select>
+        <select id="state-filter" aria-label="Lọc theo trạng thái"><option value="">Mọi trạng thái</option><option value="involved">Tham gia ticket</option><option value="active">Đang giữ việc</option><option value="waiting">Đang chờ</option></select>
+      </div>
+      <div id="people" class="people-list"></div>
+    </section>
+  </aside>
+  <main id="main">
+    <section class="ticket-head" aria-label="Tóm tắt ticket">
+      <div><div class="ticket-meta" id="ticket-meta"></div><h1 id="title">Văn phòng</h1><p id="subtitle">Đang mở dữ liệu…</p></div>
+      <div id="actions" class="actions"></div>
+    </section>
+    <div id="ticket-alert" class="ticket-alert" hidden></div>
+    <nav class="ticket-tabs" aria-label="Nội dung ticket">
+      <button data-tab="work" aria-current="page">Theo dõi</button><button data-tab="records">Biên bản</button><button data-tab="events">Sự kiện</button><button data-tab="rag">Kho RAG và Từ điển</button><button data-tab="products">Sản phẩm</button><button data-tab="retro">Hồi cứu</button>
+    </nav>
+    <div id="replay" class="replay" hidden>
+      <button class="button" id="play">Phát</button><button class="button" id="next-event">Bước tới</button>
+      <input type="range" id="seek" value="0" min="0" max="0" aria-label="Mốc phát lại">
+      <output id="replay-time"></output><label><input type="checkbox" id="replay-short" checked> Rút ngắn thời gian chờ</label>
+    </div>
+    <div class="content">
+      <section id="work" class="work-card" aria-label="Văn phòng và phân công">
+        <header class="work-head">
+          <div><h2>Không gian làm việc</h2><p id="scene-summary"></p></div>
+          <div class="segmented" role="group" aria-label="Chế độ hiển thị">
+            <button data-view="3d" aria-pressed="true">Văn phòng 3D</button><button data-view="2d" aria-pressed="false">Sơ đồ 2D</button><button data-view="board" aria-pressed="false">Phân công</button>
+          </div>
+        </header>
+        <div id="scene">
+          <div id="scene-tools" class="scene-tools"><button class="button" id="reset-view">Toàn cảnh</button><button class="button" id="zoom-in" aria-label="Phóng to">＋</button><button class="button" id="zoom-out" aria-label="Thu nhỏ">−</button></div>
+          <div id="office" class="office" aria-label="Phòng và nhân viên trong văn phòng"></div>
+          <div id="floor" class="floor" hidden></div>
+          <div id="scene-caption" class="scene-caption"></div>
+        </div>
+        <div id="assignments" class="panel" hidden></div>
+        <footer id="scene-footer" class="scene-footer">
+          <div class="legend"><span><i class="active"></i>Đang làm</span><span><i class="waiting"></i>Đang chờ</span><span><i></i>Rảnh</span></div>
+          <div class="switches"><label><input type="checkbox" id="follow"> Theo dõi ticket</label><label><input type="checkbox" id="motion"> Giảm chuyển động</label></div>
+        </footer>
+      </section>
+      <section id="tab-panel" class="work-card tab-panel" hidden></section>
+      <aside id="inspector" class="inspector" aria-labelledby="detail-title">
+        <header><div><span class="eyebrow">NGĂN CHI TIẾT</span><h2 id="detail-title" tabindex="-1">Đang theo dõi</h2></div><button class="icon-button" id="close-detail" aria-label="Đóng chi tiết" hidden>×</button></header>
+        <div id="detail" class="detail"></div>
+      </aside>
+    </div>
+    <section class="timeline" aria-labelledby="timeline-header">
+      <div class="section-heading"><div><h2 id="timeline-header">Dòng sự kiện</h2><p>Diễn biến của ticket theo thời gian</p></div><button class="button" data-tab="events">Xem tất cả</button></div>
+      <div id="timeline" class="timeline-body"></div>
+    </section>
+  </main>
+</div>
+<dialog id="dialog"><form id="dialog-form"><header><h2 id="dialog-title"></h2><button type="button" class="icon-button" id="close-dialog" aria-label="Đóng">×</button></header><div id="dialog-fields"></div><p id="dialog-error" class="error" role="alert"></p><footer><button type="button" class="button" id="cancel-dialog">Hủy</button><button id="dialog-submit" type="submit" class="button primary">Xác nhận</button></footer></form></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

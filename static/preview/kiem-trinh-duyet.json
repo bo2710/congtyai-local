@@ -1,0 +1,1130 @@
+{
+  "correct": [
+    {
+      "name": "chia-dư",
+      "ok": true,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (1, 33334, 2, 33333)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:chia-dư",
+      "test_digest": "83c78f6b0134cfd9c83bb7d9e5a23a4c35ec76dc01c9c7221f468b4e6e502f37",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "dấu-chấm",
+      "ok": true,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (1, 33334, 2, 33333)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100.000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100.000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:dấu-chấm",
+      "test_digest": "34f6aff8b0edc236c4647492ef1f70ddae0be86c82edf152e060fa6264e6a6f9",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "chia-đều",
+      "ok": true,
+      "detail": "Mong đợi (4, 30000, 0, 0) · Thực tế (4, 30000, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "120000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "4"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "120000",
+        "people": "4"
+      },
+      "expected": [
+        4,
+        30000,
+        0,
+        0
+      ],
+      "actual": [
+        4,
+        30000,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:chia-đều",
+      "test_digest": "644eaae53bea22acec80740a5b193b1638f1e3bc860fcd3a01800ff0ecba2c1d",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "một-người",
+      "ok": true,
+      "detail": "Mong đợi (1, 123, 0, 0) · Thực tế (1, 123, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "123"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "1"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "123",
+        "people": "1"
+      },
+      "expected": [
+        1,
+        123,
+        0,
+        0
+      ],
+      "actual": [
+        1,
+        123,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:một-người",
+      "test_digest": "cc9a80ffd5572e9d334d157f780437a9bdfd566ec6048cc2e41b05040b2709a3",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "tiền-rỗng",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": ""
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "",
+        "people": "3"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "path": "index.html",
+      "test_key": "template:browser:tiền-rỗng",
+      "test_digest": "458c709434f037ef0ace6a90f0c784733670909e26713d704cdfee9ad1c7181f",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-rỗng",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "5"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": ""
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "5",
+        "people": ""
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:người-rỗng",
+      "test_digest": "1e287c0bbfc0e1801de080451fddb1af9dd5a697977b89a5f072e48a0981f15f",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "tiền-âm",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "-1"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "-1",
+        "people": "3"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "path": "index.html",
+      "test_key": "template:browser:tiền-âm",
+      "test_digest": "8ed39895074820fbd72881f1bf52f5ecee4946a80d95326b2b9881512f703749",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "không-người",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "500"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "0"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "500",
+        "people": "0"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:không-người",
+      "test_digest": "dcc9a3da28466bec6a0bb8956a0d27ef03203a33040a83ca864caccf53d7988d",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-lẻ",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "500"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "1.5"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "500",
+        "people": "1.5"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:người-lẻ",
+      "test_digest": "355660d7b24cb9d289b930c755ad169417e5d6acc1f0175e3c0b55d1e9445014",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-vượt-đồng",
+      "ok": true,
+      "detail": "Mong đợi (2, 1, 1, 0) · Thực tế (2, 1, 1, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "2"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "2",
+        "people": "3"
+      },
+      "expected": [
+        2,
+        1,
+        1,
+        0
+      ],
+      "actual": [
+        2,
+        1,
+        1,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:người-vượt-đồng",
+      "test_digest": "6a910b6fec5efdfc8d63643fbf8bed67ad8aa261d5f6385d57ba3dce0c85976c",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "hóa-đơn-không",
+      "ok": true,
+      "detail": "Mong đợi (3, 0, 0, 0) · Thực tế (3, 0, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "0"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "0",
+        "people": "3"
+      },
+      "expected": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "actual": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:hóa-đơn-không",
+      "test_digest": "b8832885ccdb3d37030d9511d3e43b92e41318ea6a991b048ade93ee430ff6b3",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "khôi-phục",
+      "ok": true,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (1, 33334, 2, 33333)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:khôi-phục",
+      "test_digest": "83c78f6b0134cfd9c83bb7d9e5a23a4c35ec76dc01c9c7221f468b4e6e502f37",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "Màn hình 360 px",
+      "ok": true,
+      "detail": "Chiều rộng nội dung 360 px.",
+      "level": "Đã chạy",
+      "runner": "chromium",
+      "test_key": "template:browser:Màn hình 360 px",
+      "criterion": "split-arithmetic",
+      "test_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "Offline",
+      "ok": true,
+      "detail": "Phụ thuộc ngoài đã yêu cầu: 0.",
+      "level": "Đã chạy",
+      "runner": "chromium",
+      "test_key": "template:browser:Offline",
+      "criterion": "split-arithmetic",
+      "test_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "required": true,
+      "method": "browser"
+    }
+  ],
+  "remainder_last": [
+    {
+      "name": "chia-dư",
+      "ok": false,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (2, 33333, 1, 33334)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        2,
+        33333,
+        1,
+        33334
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:chia-dư",
+      "test_digest": "83c78f6b0134cfd9c83bb7d9e5a23a4c35ec76dc01c9c7221f468b4e6e502f37",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "dấu-chấm",
+      "ok": false,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (2, 33333, 1, 33334)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100.000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100.000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        2,
+        33333,
+        1,
+        33334
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:dấu-chấm",
+      "test_digest": "34f6aff8b0edc236c4647492ef1f70ddae0be86c82edf152e060fa6264e6a6f9",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "chia-đều",
+      "ok": true,
+      "detail": "Mong đợi (4, 30000, 0, 0) · Thực tế (4, 30000, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "120000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "4"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "120000",
+        "people": "4"
+      },
+      "expected": [
+        4,
+        30000,
+        0,
+        0
+      ],
+      "actual": [
+        4,
+        30000,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:chia-đều",
+      "test_digest": "644eaae53bea22acec80740a5b193b1638f1e3bc860fcd3a01800ff0ecba2c1d",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "một-người",
+      "ok": true,
+      "detail": "Mong đợi (1, 123, 0, 0) · Thực tế (1, 123, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "123"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "1"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "123",
+        "people": "1"
+      },
+      "expected": [
+        1,
+        123,
+        0,
+        0
+      ],
+      "actual": [
+        1,
+        123,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:một-người",
+      "test_digest": "cc9a80ffd5572e9d334d157f780437a9bdfd566ec6048cc2e41b05040b2709a3",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "tiền-rỗng",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": ""
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "",
+        "people": "3"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "path": "index.html",
+      "test_key": "template:browser:tiền-rỗng",
+      "test_digest": "458c709434f037ef0ace6a90f0c784733670909e26713d704cdfee9ad1c7181f",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-rỗng",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "5"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": ""
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "5",
+        "people": ""
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:người-rỗng",
+      "test_digest": "1e287c0bbfc0e1801de080451fddb1af9dd5a697977b89a5f072e48a0981f15f",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "tiền-âm",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "-1"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "-1",
+        "people": "3"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập tổng tiền bằng số đồng nguyên không âm.",
+      "path": "index.html",
+      "test_key": "template:browser:tiền-âm",
+      "test_digest": "8ed39895074820fbd72881f1bf52f5ecee4946a80d95326b2b9881512f703749",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "không-người",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "500"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "0"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "500",
+        "people": "0"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:không-người",
+      "test_digest": "dcc9a3da28466bec6a0bb8956a0d27ef03203a33040a83ca864caccf53d7988d",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-lẻ",
+      "ok": true,
+      "detail": "Mong đợi thông báo lỗi · Thực tế Nhập số người nguyên lớn hơn 0.",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-invalid",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "500"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "1.5"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "500",
+        "people": "1.5"
+      },
+      "expected": "Thông báo lỗi có nội dung",
+      "actual": "Nhập số người nguyên lớn hơn 0.",
+      "path": "index.html",
+      "test_key": "template:browser:người-lẻ",
+      "test_digest": "355660d7b24cb9d289b930c755ad169417e5d6acc1f0175e3c0b55d1e9445014",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "người-vượt-đồng",
+      "ok": false,
+      "detail": "Mong đợi (2, 1, 1, 0) · Thực tế (1, 0, 2, 1)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "2"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "2",
+        "people": "3"
+      },
+      "expected": [
+        2,
+        1,
+        1,
+        0
+      ],
+      "actual": [
+        1,
+        0,
+        2,
+        1
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:người-vượt-đồng",
+      "test_digest": "6a910b6fec5efdfc8d63643fbf8bed67ad8aa261d5f6385d57ba3dce0c85976c",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "hóa-đơn-không",
+      "ok": true,
+      "detail": "Mong đợi (3, 0, 0, 0) · Thực tế (3, 0, 0, 0)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "0"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "0",
+        "people": "3"
+      },
+      "expected": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "actual": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:hóa-đơn-không",
+      "test_digest": "b8832885ccdb3d37030d9511d3e43b92e41318ea6a991b048ade93ee430ff6b3",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "khôi-phục",
+      "ok": false,
+      "detail": "Mong đợi (1, 33334, 2, 33333) · Thực tế (2, 33333, 1, 33334)",
+      "level": "Đã chạy",
+      "kind": "behavior",
+      "runner": "chromium",
+      "loaded_assets": [
+        "index.html"
+      ],
+      "criterion": "split-arithmetic",
+      "steps": [
+        {
+          "action": "fill",
+          "selector": "total",
+          "value": "100000"
+        },
+        {
+          "action": "fill",
+          "selector": "people",
+          "value": "3"
+        },
+        {
+          "action": "click",
+          "selector": "divide"
+        }
+      ],
+      "inputs": {
+        "total": "100000",
+        "people": "3"
+      },
+      "expected": [
+        1,
+        33334,
+        2,
+        33333
+      ],
+      "actual": [
+        2,
+        33333,
+        1,
+        33334
+      ],
+      "path": "index.html",
+      "test_key": "template:browser:khôi-phục",
+      "test_digest": "83c78f6b0134cfd9c83bb7d9e5a23a4c35ec76dc01c9c7221f468b4e6e502f37",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "Màn hình 360 px",
+      "ok": true,
+      "detail": "Chiều rộng nội dung 360 px.",
+      "level": "Đã chạy",
+      "runner": "chromium",
+      "test_key": "template:browser:Màn hình 360 px",
+      "criterion": "split-arithmetic",
+      "test_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "required": true,
+      "method": "browser"
+    },
+    {
+      "name": "Offline",
+      "ok": true,
+      "detail": "Phụ thuộc ngoài đã yêu cầu: 0.",
+      "level": "Đã chạy",
+      "runner": "chromium",
+      "test_key": "template:browser:Offline",
+      "criterion": "split-arithmetic",
+      "test_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "required": true,
+      "method": "browser"
+    }
+  ]
+}
